@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { SlickCarouselComponent } from 'ngx-slick-carousel';
-    
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -27,31 +27,31 @@ export class AppComponent {
     {img: "https://via.placeholder.com/600.png/654/fff"}
   ];
   slideConfig = {infinite: false, "slidesToShow": 4, "slidesToScroll": 1, variableWidth: true};
-  
+
   addSlide() {
     this.slides.push({img: "http://placehold.it/350x150/777777"})
   }
-  
+
   removeSlide() {
     this.slides.pop();
   }
-  
+
   slickInit(e: any) {
     console.log('slick initialized');
   }
-  
+
   breakpoint(e:any) {
     console.log('breakpoint');
   }
-  
+
   afterChange(e:any) {
     this.currentSlide = e.currentSlide;
     console.log('afterChange');
   }
-  
+
   beforeChange(e:any) {
     console.log('beforeChange');
-  }  
+  }
 
   @ViewChild('slickModal') slickModal?: SlickCarouselComponent;
 
@@ -70,11 +70,11 @@ export class AppComponent {
       this.visibleCards = Math.floor( slickWidth / this.cardWidth);
       this.slideConfig = {...this.slideConfig, slidesToShow: this.visibleCards};
       console.log(this.visibleCards);
-      let newAddCardWidth = this.addCardWidth;
+      let newAddCardWidth;
       const totalSlideWidth = this.slides.length * this.cardWidth;
       const visibleCardsWidth = this.visibleCards * this.cardWidth;
-      if (visibleCardsWidth - totalSlideWidth > this.cardWidth) {
-        newAddCardWidth = visibleCardsWidth - totalSlideWidth;
+      if (slickWidth - totalSlideWidth > this.cardWidth) {
+        newAddCardWidth = slickWidth - totalSlideWidth;
       } else if (visibleCardsWidth < slickWidth) {
         newAddCardWidth = this.cardWidth + (slickWidth - visibleCardsWidth);
       } else {
